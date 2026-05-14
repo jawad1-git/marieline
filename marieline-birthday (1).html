@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Marieline 🌹</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Dancing+Script:wght@700&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0a0a0f;
+    --deep: #0d0a1a;
+    --rose: #c0394b;
+    --rose-light: #e8607a;
+    --rose-pale: #f9c6ce;
+    --stitch-blue: #4a90d9;
+    --stitch-dark: #1a3a6e;
+    --stitch-mid: #2d5fa6;
+    --gold: #d4a843;
+    --white: #f5f0eb;
+    --text-muted: #a09aaf;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Lato', sans-serif;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Custom cursor */
+  .cursor {
+    width: 12px; height: 12px;
+    background: var(--rose-light);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s, background 0.2s;
+    mix-blend-mode: screen;
+  }
+  .cursor-trail {
+    width: 30px; height: 30px;
+    border: 1px solid var(--rose);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: left 0.12s ease, top 0.12s ease;
+    opacity: 0.5;
+  }
+
+  /* Stars background */
+  .stars {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+  .star {
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+    animation: twinkle var(--d, 3s) infinite ease-in-out var(--delay, 0s);
+  }
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.1; transform: scale(1); }
+    50% { opacity: 0.9; transform: scale(1.3); }
+  }
+
+  /* Hero section */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+    padding: 40px 20px;
+    text-align: center;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 60%, rgba(74,144,217,0.08) 0%, transparent 70%),
+                radial-gradient(ellipse at 30% 20%, rgba(192,57,75,0.12) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  /* Stitch SVG */
+  .stitch-container {
+    position: relative;
+    margin-bottom: 30px;
+    animation: float 4s ease-in-out infinite;
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(-2deg); }
+    50% { transform: translateY(-18px) rotate(2deg); }
+  }
+
+  .stitch-svg {
+    width: 160px;
+    height: 160px;
+    filter: drop-shadow(0 0 30px rgba(74,144,217,0.6));
+  }
+
+  /* Ohana badge */
+  .ohana-badge {
+    position: absolute;
+    top: -10px; right: -20px;
+    background: var(--rose);
+    color: white;
+    font-family: 'Dancing Script', cursive;
+    font-size: 13px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    transform: rotate(12deg);
+    box-shadow: 0 0 15px rgba(192,57,75,0.5);
+    animation: pulse-badge 2s ease-in-out infinite;
+  }
+  @keyframes pulse-badge {
+    0%, 100% { transform: rotate(12deg) scale(1); }
+    50% { transform: rotate(12deg) scale(1.08); }
+  }
+
+  /* Title */
+  .title-small {
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+    font-size: clamp(12px, 3vw, 15px);
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    color: var(--rose-light);
+    margin-bottom: 12px;
+    opacity: 0;
+    animation: fadeUp 1s ease forwards 0.3s;
+  }
+
+  .title-main {
+    font-family: 'Dancing Script', cursive;
+    font-size: clamp(52px, 13vw, 110px);
+    line-height: 1;
+    background: linear-gradient(135deg, var(--rose-pale), var(--rose-light), var(--rose), #8b1a2c);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 0 40px rgba(192,57,75,0.3));
+    opacity: 0;
+    animation: fadeUp 1s ease forwards 0.6s;
+  }
+
+  .title-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(38px, 10vw, 85px);
+    font-style: italic;
+    color: var(--white);
+    letter-spacing: -1px;
+    text-shadow: 0 0 60px rgba(74,144,217,0.4);
+    opacity: 0;
+    animation: fadeUp 1s ease forwards 0.9s;
+    display: block;
+    margin-top: -10px;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Rose divider */
+  .rose-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 30px 0;
+    opacity: 0;
+    animation: fadeUp 1s ease forwards 1.2s;
+  }
+  .rose-row .line {
+    height: 1px;
+    width: 80px;
+    background: linear-gradient(90deg, transparent, var(--rose), transparent);
+  }
+  .rose-emoji {
+    font-size: 22px;
+    animation: spin-rose 6s linear infinite;
+  }
+  @keyframes spin-rose {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  /* Message */
+  .message {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(14px, 3.5vw, 20px);
+    color: var(--text-muted);
+    max-width: 500px;
+    line-height: 1.8;
+    font-style: italic;
+    opacity: 0;
+    animation: fadeUp 1s ease forwards 1.4s;
+  }
+  .message span { color: var(--rose-light); font-style: normal; }
+
+  /* Countdown */
+  .countdown-section {
+    position: relative;
+    z-index: 1;
+    padding: 80px 20px;
+    text-align: center;
+    background: linear-gradient(180deg, transparent, rgba(13,10,26,0.95), transparent);
+  }
+
+  .section-label {
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    font-size: 12px;
+    color: var(--stitch-blue);
+    margin-bottom: 30px;
+  }
+
+  .countdown-grid {
+    display: flex;
+    justify-content: center;
+    gap: clamp(12px, 4vw, 40px);
+    flex-wrap: wrap;
+  }
+
+  .countdown-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .countdown-box {
+    width: clamp(70px, 18vw, 110px);
+    height: clamp(70px, 18vw, 110px);
+    border: 1px solid rgba(74,144,217,0.3);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(74,144,217,0.05);
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+  }
+
+  .countdown-box::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(74,144,217,0.08), transparent);
+  }
+
+  .countdown-box::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--stitch-blue), transparent);
+  }
+
+  .countdown-num {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 7vw, 52px);
+    font-weight: 700;
+    color: var(--white);
+    position: relative;
+    z-index: 1;
+    text-shadow: 0 0 20px rgba(74,144,217,0.5);
+  }
+
+  .countdown-label {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  /* Ohana section */
+  .ohana-section {
+    position: relative;
+    z-index: 1;
+    padding: 80px 20px;
+    text-align: center;
+  }
+
+  .ohana-title {
+    font-family: 'Dancing Script', cursive;
+    font-size: clamp(42px, 10vw, 80px);
+    color: var(--stitch-blue);
+    text-shadow: 0 0 40px rgba(74,144,217,0.4);
+    margin-bottom: 10px;
+  }
+
+  .ohana-sub {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    color: var(--text-muted);
+    font-size: clamp(14px, 3vw, 18px);
+    margin-bottom: 50px;
+  }
+
+  /* Wishes cards */
+  .wishes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .wish-card {
+    border: 1px solid rgba(192,57,75,0.2);
+    border-radius: 16px;
+    padding: 28px 22px;
+    background: rgba(192,57,75,0.04);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+    cursor: pointer;
+  }
+
+  .wish-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(192,57,75,0.5);
+  }
+
+  .wish-card::before {
+    content: '';
+    position: absolute;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background: radial-gradient(circle, rgba(192,57,75,0.06) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .wish-card:hover::before { opacity: 1; }
+
+  .wish-icon { font-size: 28px; margin-bottom: 14px; }
+
+  .wish-text {
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+
+  /* Floating roses */
+  .floating-roses {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .petal {
+    position: absolute;
+    font-size: 16px;
+    opacity: 0;
+    animation: fall var(--fall-dur, 8s) linear infinite var(--fall-delay, 0s);
+  }
+
+  @keyframes fall {
+    0% { opacity: 0; transform: translateY(-20px) rotate(0deg); }
+    10% { opacity: 0.7; }
+    90% { opacity: 0.4; }
+    100% { opacity: 0; transform: translateY(100vh) rotate(360deg) translateX(var(--drift, 30px)); }
+  }
+
+  /* Birthday message section */
+  .birthday-msg {
+    position: relative;
+    z-index: 1;
+    padding: 60px 20px 100px;
+    text-align: center;
+  }
+
+  .big-wish {
+    font-family: 'Dancing Script', cursive;
+    font-size: clamp(28px, 7vw, 60px);
+    background: linear-gradient(90deg, var(--stitch-blue), var(--rose-light), var(--gold), var(--rose));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    background-size: 200%;
+    animation: shimmer 3s linear infinite;
+    margin-bottom: 20px;
+  }
+
+  @keyframes shimmer {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
+  }
+
+  .heart-beat {
+    font-size: 40px;
+    display: inline-block;
+    animation: heartbeat 1.2s ease-in-out infinite;
+  }
+  @keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    14% { transform: scale(1.2); }
+    28% { transform: scale(1); }
+    42% { transform: scale(1.15); }
+    70% { transform: scale(1); }
+  }
+
+  /* Fireworks canvas */
+  #fireworks {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  /* Launch button */
+  .launch-btn {
+    margin-top: 30px;
+    padding: 14px 40px;
+    background: transparent;
+    border: 1px solid var(--rose);
+    color: var(--rose-light);
+    font-family: 'Lato', sans-serif;
+    font-size: 13px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    z-index: 3;
+  }
+
+  .launch-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--rose);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+    z-index: -1;
+  }
+
+  .launch-btn:hover {
+    color: white;
+    box-shadow: 0 0 30px rgba(192,57,75,0.4);
+  }
+  .launch-btn:hover::before { transform: scaleX(1); }
+
+  /* Music note */
+  .music-toggle {
+    position: fixed;
+    bottom: 30px; right: 30px;
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    background: rgba(74,144,217,0.15);
+    border: 1px solid rgba(74,144,217,0.4);
+    color: var(--stitch-blue);
+    font-size: 20px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    z-index: 100;
+    transition: all 0.3s;
+  }
+  .music-toggle:hover { background: rgba(74,144,217,0.3); transform: scale(1.1); }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--black); }
+  ::-webkit-scrollbar-thumb { background: var(--rose); border-radius: 2px; }
+
+  /* Birthday arrived message */
+  #arrived-msg {
+    display: none;
+    font-family: 'Dancing Script', cursive;
+    font-size: clamp(22px, 5vw, 40px);
+    color: var(--gold);
+    text-shadow: 0 0 30px rgba(212,168,67,0.6);
+    margin-top: 20px;
+    animation: fadeUp 1s ease forwards;
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-trail" id="cursorTrail"></div>
+
+<canvas id="fireworks"></canvas>
+
+<!-- Stars -->
+<div class="stars" id="stars"></div>
+
+<!-- Falling petals -->
+<div class="floating-roses" id="petals"></div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="stitch-container">
+    <svg class="stitch-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <!-- Stitch body -->
+      <ellipse cx="100" cy="130" rx="55" ry="50" fill="#4a90d9"/>
+      <!-- Head -->
+      <ellipse cx="100" cy="85" rx="52" ry="48" fill="#4a90d9"/>
+      <!-- Big ears -->
+      <ellipse cx="55" cy="45" rx="22" ry="30" fill="#4a90d9" transform="rotate(-20 55 45)"/>
+      <ellipse cx="145" cy="45" rx="22" ry="30" fill="#4a90d9" transform="rotate(20 145 45)"/>
+      <!-- Inner ears -->
+      <ellipse cx="55" cy="45" rx="13" ry="20" fill="#2d5fa6" transform="rotate(-20 55 45)"/>
+      <ellipse cx="145" cy="45" rx="13" ry="20" fill="#2d5fa6" transform="rotate(20 145 45)"/>
+      <!-- Eyes -->
+      <ellipse cx="82" cy="80" rx="14" ry="16" fill="#1a1a2e"/>
+      <ellipse cx="118" cy="80" rx="14" ry="16" fill="#1a1a2e"/>
+      <!-- Eye shine -->
+      <circle cx="87" cy="74" r="5" fill="white"/>
+      <circle cx="123" cy="74" r="5" fill="white"/>
+      <circle cx="89" cy="76" r="2" fill="white" opacity="0.6"/>
+      <!-- Nose -->
+      <ellipse cx="100" cy="98" rx="9" ry="7" fill="#1a3a6e"/>
+      <!-- Smile -->
+      <path d="M85 108 Q100 122 115 108" stroke="#1a3a6e" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <!-- Tummy -->
+      <ellipse cx="100" cy="138" rx="30" ry="25" fill="#2d5fa6" opacity="0.5"/>
+      <!-- Arms -->
+      <ellipse cx="45" cy="140" rx="14" ry="22" fill="#4a90d9" transform="rotate(20 45 140)"/>
+      <ellipse cx="155" cy="140" rx="14" ry="22" fill="#4a90d9" transform="rotate(-20 155 140)"/>
+      <!-- Little claws -->
+      <circle cx="34" cy="154" r="5" fill="#3a80c9"/>
+      <circle cx="42" cy="160" r="5" fill="#3a80c9"/>
+      <circle cx="52" cy="162" r="5" fill="#3a80c9"/>
+      <circle cx="148" cy="162" r="5" fill="#3a80c9"/>
+      <circle cx="158" cy="160" r="5" fill="#3a80c9"/>
+      <circle cx="166" cy="154" r="5" fill="#3a80c9"/>
+      <!-- Spots -->
+      <circle cx="78" cy="115" r="4" fill="#2d5fa6" opacity="0.6"/>
+      <circle cx="100" cy="112" r="4" fill="#2d5fa6" opacity="0.6"/>
+      <circle cx="122" cy="115" r="4" fill="#2d5fa6" opacity="0.6"/>
+      <!-- Antennae -->
+      <line x1="88" y1="38" x2="78" y2="15" stroke="#4a90d9" stroke-width="3" stroke-linecap="round"/>
+      <line x1="112" y1="38" x2="122" y2="15" stroke="#4a90d9" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="78" cy="14" r="5" fill="#e8607a"/>
+      <circle cx="122" cy="14" r="5" fill="#e8607a"/>
+    </svg>
+    <div class="ohana-badge">Ohana 💙</div>
+  </div>
+
+  <p class="title-small">✦ wishing you the most magical day ✦</p>
+  <h1 class="title-main">Happy Birthday</h1>
+  <span class="title-name">Marieline</span>
+
+  <div class="rose-row">
+    <div class="line"></div>
+    <span class="rose-emoji">🌹</span>
+    <span class="rose-emoji" style="animation-delay:2s">🌹</span>
+    <span class="rose-emoji" style="animation-delay:4s">🌹</span>
+    <div class="line"></div>
+  </div>
+
+  <p class="message">
+    Today the universe pauses to celebrate<br>
+    <span>the most wonderful person</span> — you bring<br>
+    light, love, and a little bit of <span>Ohana</span> to everyone around you 💙
+  </p>
+</section>
+
+<!-- COUNTDOWN -->
+<section class="countdown-section">
+  <p class="section-label">✦ countdown to your special day ✦</p>
+  <div class="countdown-grid">
+    <div class="countdown-item">
+      <div class="countdown-box"><span class="countdown-num" id="cd-days">00</span></div>
+      <span class="countdown-label">Days</span>
+    </div>
+    <div class="countdown-item">
+      <div class="countdown-box"><span class="countdown-num" id="cd-hours">00</span></div>
+      <span class="countdown-label">Hours</span>
+    </div>
+    <div class="countdown-item">
+      <div class="countdown-box"><span class="countdown-num" id="cd-mins">00</span></div>
+      <span class="countdown-label">Minutes</span>
+    </div>
+    <div class="countdown-item">
+      <div class="countdown-box"><span class="countdown-num" id="cd-secs">00</span></div>
+      <span class="countdown-label">Seconds</span>
+    </div>
+  </div>
+  <div id="arrived-msg">🎉 The day is HERE! Happy Birthday Marieline! 🎉</div>
+</section>
+
+<!-- OHANA SECTION -->
+<section class="ohana-section">
+  <h2 class="ohana-title">Ohana means family 💙</h2>
+  <p class="ohana-sub">"and family means nobody gets left behind or forgotten"</p>
+
+  <div class="wishes-grid">
+    <div class="wish-card">
+      <div class="wish-icon">🌹</div>
+      <p class="wish-text">May your life always bloom with roses — beautiful, passionate, and full of fragrance</p>
+    </div>
+    <div class="wish-card">
+      <div class="wish-icon">💙</div>
+      <p class="wish-text">Like Stitch found his ohana, may you always be surrounded by people who love you unconditionally</p>
+    </div>
+    <div class="wish-card">
+      <div class="wish-icon">✨</div>
+      <p class="wish-text">Wishing you a year filled with adventure, laughter, and moments that take your breath away</p>
+    </div>
+    <div class="wish-card">
+      <div class="wish-icon">🖤</div>
+      <p class="wish-text">Dark and beautiful, like the night sky — you make the world around you shine brighter</p>
+    </div>
+  </div>
+</section>
+
+<!-- FRIEND PARAGRAPH -->
+<section style="position:relative;z-index:1;padding:60px 20px;text-align:center;">
+  <p class="section-label">✦ a note from your best friend ✦</p>
+  <div style="max-width:620px;margin:0 auto;border:1px solid rgba(192,57,75,0.2);border-radius:24px;padding:40px 36px;background:rgba(192,57,75,0.04);position:relative;overflow:hidden;">
+    <div style="position:absolute;top:-30px;left:-20px;font-size:100px;opacity:0.05;font-family:'Playfair Display',serif;">"</div>
+    <p style="font-family:'Playfair Display',serif;font-size:clamp(15px,3.5vw,20px);color:#c8c0d4;line-height:2;font-style:italic;">
+      Happy birthday marieline, i hope you enjoy your day, and your happy, i wish we could meet and give you a gift, it's your day, don't let anyone ruin it for you, do whatever makes you happy and I'm glad i met you, you're a good person and you deserve to see good things happening in your life, and I feel happy when you're happy, enjoy your day birthday girl :)
+    </p>
+    <div style="margin-top:24px;font-family:'Dancing Script',cursive;font-size:22px;color:var(--rose-light);">— your best friend</div>
+  </div>
+</section>
+
+<!-- CATCH STITCH GAME -->
+<section style="position:relative;z-index:1;padding:40px 20px 80px;text-align:center;">
+  <p class="section-label">✦ a little game for you ✦</p>
+  <h2 style="font-family:'Dancing Script',cursive;font-size:clamp(32px,7vw,55px);color:var(--stitch-blue);margin-bottom:8px;text-shadow:0 0 30px rgba(74,144,217,0.4);">Catch Stitch! 💙</h2>
+  <p style="font-family:'Lato',sans-serif;font-weight:300;color:var(--text-muted);font-size:14px;margin-bottom:24px;">Click Stitch as fast as you can — he's sneaky! 😄</p>
+
+  <div style="display:flex;justify-content:center;gap:30px;margin-bottom:16px;flex-wrap:wrap;">
+    <div style="font-family:'Lato',sans-serif;font-size:13px;color:var(--text-muted);">Score: <span id="game-score" style="color:var(--rose-light);font-size:18px;font-weight:400;">0</span></div>
+    <div style="font-family:'Lato',sans-serif;font-size:13px;color:var(--text-muted);">Best: <span id="game-best" style="color:var(--gold);font-size:18px;font-weight:400;">0</span></div>
+    <div style="font-family:'Lato',sans-serif;font-size:13px;color:var(--text-muted);">Time: <span id="game-timer" style="color:var(--rose-light);font-size:18px;font-weight:400;">30</span>s</div>
+  </div>
+
+  <div id="game-area" style="position:relative;width:100%;max-width:600px;height:340px;margin:0 auto;border:1px solid rgba(74,144,217,0.2);border-radius:20px;background:rgba(74,144,217,0.03);overflow:hidden;cursor:none;">
+    <!-- Game Stitch -->
+  <div id="game-stitch" style="position:absolute;width:70px;height:70px;cursor:pointer;transition:none;user-select:none;display:flex;align-items:center;justify-content:center;">
+    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" style="width:65px;height:65px;filter:drop-shadow(0 0 10px rgba(74,144,217,0.7));pointer-events:none;">
+      <ellipse cx="100" cy="130" rx="55" ry="50" fill="#4a90d9"/>
+      <ellipse cx="100" cy="85" rx="52" ry="48" fill="#4a90d9"/>
+      <ellipse cx="55" cy="45" rx="22" ry="30" fill="#4a90d9" transform="rotate(-20 55 45)"/>
+      <ellipse cx="145" cy="45" rx="22" ry="30" fill="#4a90d9" transform="rotate(20 145 45)"/>
+      <ellipse cx="55" cy="45" rx="13" ry="20" fill="#2d5fa6" transform="rotate(-20 55 45)"/>
+      <ellipse cx="145" cy="45" rx="13" ry="20" fill="#2d5fa6" transform="rotate(20 145 45)"/>
+      <ellipse cx="82" cy="80" rx="14" ry="16" fill="#1a1a2e"/>
+      <ellipse cx="118" cy="80" rx="14" ry="16" fill="#1a1a2e"/>
+      <circle cx="87" cy="74" r="5" fill="white"/>
+      <circle cx="123" cy="74" r="5" fill="white"/>
+      <circle cx="89" cy="76" r="2" fill="white" opacity="0.6"/>
+      <ellipse cx="100" cy="98" rx="9" ry="7" fill="#1a3a6e"/>
+      <path d="M85 108 Q100 122 115 108" stroke="#1a3a6e" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <ellipse cx="100" cy="138" rx="30" ry="25" fill="#2d5fa6" opacity="0.5"/>
+      <ellipse cx="45" cy="140" rx="14" ry="22" fill="#4a90d9" transform="rotate(20 45 140)"/>
+      <ellipse cx="155" cy="140" rx="14" ry="22" fill="#4a90d9" transform="rotate(-20 155 140)"/>
+      <circle cx="34" cy="154" r="5" fill="#3a80c9"/>
+      <circle cx="42" cy="160" r="5" fill="#3a80c9"/>
+      <circle cx="52" cy="162" r="5" fill="#3a80c9"/>
+      <circle cx="148" cy="162" r="5" fill="#3a80c9"/>
+      <circle cx="158" cy="160" r="5" fill="#3a80c9"/>
+      <circle cx="166" cy="154" r="5" fill="#3a80c9"/>
+      <line x1="88" y1="38" x2="78" y2="15" stroke="#4a90d9" stroke-width="3" stroke-linecap="round"/>
+      <line x1="112" y1="38" x2="122" y2="15" stroke="#4a90d9" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="78" cy="14" r="5" fill="#e8607a"/>
+      <circle cx="122" cy="14" r="5" fill="#e8607a"/>
+    </svg>
+  </div>
+    <!-- Miss flash -->
+    <div id="miss-flash" style="position:absolute;inset:0;background:rgba(192,57,75,0.15);opacity:0;border-radius:20px;pointer-events:none;transition:opacity 0.15s;"></div>
+    <!-- Start overlay -->
+    <div id="game-overlay" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(10,10,15,0.85);border-radius:20px;z-index:10;">
+      <div style="font-size:60px;margin-bottom:16px;">🐾</div>
+      <p style="font-family:'Dancing Script',cursive;font-size:28px;color:var(--stitch-blue);margin-bottom:20px;">Ready to catch Stitch?</p>
+      <button onclick="startGame()" style="padding:12px 36px;background:transparent;border:1px solid var(--stitch-blue);color:var(--stitch-blue);font-family:'Lato',sans-serif;font-size:13px;letter-spacing:3px;text-transform:uppercase;border-radius:50px;cursor:pointer;transition:all 0.3s;" onmouseover="this.style.background='rgba(74,144,217,0.15)'" onmouseout="this.style.background='transparent'">Start! 💙</button>
+    </div>
+    <!-- End overlay -->
+    <div id="game-end" style="position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;background:rgba(10,10,15,0.9);border-radius:20px;z-index:10;">
+      <div style="font-size:50px;margin-bottom:12px;">🎉</div>
+      <p style="font-family:'Dancing Script',cursive;font-size:26px;color:var(--rose-light);margin-bottom:6px;">Time's up!</p>
+      <p style="font-family:'Lato',sans-serif;color:var(--text-muted);font-size:14px;margin-bottom:4px;">You caught Stitch <span id="final-score" style="color:var(--white);">0</span> times!</p>
+      <p id="best-msg" style="font-family:'Lato',sans-serif;color:var(--gold);font-size:13px;margin-bottom:20px;"></p>
+      <button onclick="startGame()" style="padding:10px 30px;background:transparent;border:1px solid var(--rose);color:var(--rose-light);font-family:'Lato',sans-serif;font-size:12px;letter-spacing:3px;text-transform:uppercase;border-radius:50px;cursor:pointer;transition:all 0.3s;" onmouseover="this.style.background='rgba(192,57,75,0.1)'" onmouseout="this.style.background='transparent'">Play Again 🌹</button>
+    </div>
+    <!-- Click particles container -->
+    <div id="click-particles" style="position:absolute;inset:0;pointer-events:none;overflow:hidden;border-radius:20px;"></div>
+  </div>
+</section>
+
+<!-- BIRTHDAY MESSAGE -->
+<section class="birthday-msg">
+  <p class="big-wish">Make a wish, Marieline ⭐</p>
+  <div class="heart-beat">🌹</div>
+  <br><br>
+  <button class="launch-btn" onclick="launchFireworks()">✨ Celebrate! ✨</button>
+</section>
+
+<script>
+// Cursor
+const cursor = document.getElementById('cursor');
+const trail = document.getElementById('cursorTrail');
+document.addEventListener('mousemove', e => {
+  cursor.style.left = e.clientX + 'px';
+  cursor.style.top = e.clientY + 'px';
+  setTimeout(() => {
+    trail.style.left = e.clientX + 'px';
+    trail.style.top = e.clientY + 'px';
+  }, 80);
+});
+
+// Stars
+const starsContainer = document.getElementById('stars');
+for (let i = 0; i < 120; i++) {
+  const star = document.createElement('div');
+  star.className = 'star';
+  const size = Math.random() * 2.5 + 0.5;
+  star.style.cssText = `
+    left: ${Math.random()*100}%;
+    top: ${Math.random()*100}%;
+    width: ${size}px;
+    height: ${size}px;
+    --d: ${2+Math.random()*4}s;
+    --delay: ${Math.random()*5}s;
+  `;
+  starsContainer.appendChild(star);
+}
+
+// Petals
+const petalsContainer = document.getElementById('petals');
+const petalEmojis = ['🌹','🌸','🌺','🌷','✨'];
+for (let i = 0; i < 18; i++) {
+  const p = document.createElement('div');
+  p.className = 'petal';
+  p.textContent = petalEmojis[Math.floor(Math.random()*petalEmojis.length)];
+  p.style.cssText = `
+    left: ${Math.random()*100}%;
+    --fall-dur: ${6+Math.random()*8}s;
+    --fall-delay: ${Math.random()*10}s;
+    --drift: ${(Math.random()-0.5)*80}px;
+    font-size: ${12+Math.random()*10}px;
+  `;
+  petalsContainer.appendChild(p);
+}
+
+// Countdown to May 15, 2026
+function updateCountdown() {
+  const now = new Date();
+  const birthday = new Date('2026-05-15T00:00:00');
+  const diff = birthday - now;
+
+  if (diff <= 0) {
+    document.getElementById('cd-days').textContent = '00';
+    document.getElementById('cd-hours').textContent = '00';
+    document.getElementById('cd-mins').textContent = '00';
+    document.getElementById('cd-secs').textContent = '00';
+    document.getElementById('arrived-msg').style.display = 'block';
+    launchFireworks();
+    return;
+  }
+
+  const days = Math.floor(diff / (1000*60*60*24));
+  const hours = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
+  const mins = Math.floor((diff % (1000*60*60)) / (1000*60));
+  const secs = Math.floor((diff % (1000*60)) / 1000);
+
+  document.getElementById('cd-days').textContent = String(days).padStart(2,'0');
+  document.getElementById('cd-hours').textContent = String(hours).padStart(2,'0');
+  document.getElementById('cd-mins').textContent = String(mins).padStart(2,'0');
+  document.getElementById('cd-secs').textContent = String(secs).padStart(2,'0');
+}
+updateCountdown();
+setInterval(updateCountdown, 1000);
+
+// Fireworks
+const canvas = document.getElementById('fireworks');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+window.addEventListener('resize', () => {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+});
+
+let particles = [];
+let fwActive = false;
+let fwTimer = null;
+
+function randomColor() {
+  const colors = ['#c0394b','#e8607a','#f9c6ce','#4a90d9','#2d5fa6','#d4a843','#ffffff','#ff6b9d'];
+  return colors[Math.floor(Math.random()*colors.length)];
+}
+
+function createBurst(x, y) {
+  const count = 80 + Math.floor(Math.random()*40);
+  for (let i = 0; i < count; i++) {
+    const angle = (Math.PI*2 / count) * i + Math.random()*0.3;
+    const speed = 2 + Math.random()*5;
+    particles.push({
+      x, y,
+      vx: Math.cos(angle)*speed,
+      vy: Math.sin(angle)*speed - 1,
+      color: randomColor(),
+      alpha: 1,
+      radius: 1.5 + Math.random()*2,
+      decay: 0.012 + Math.random()*0.01,
+      gravity: 0.08
+    });
+  }
+}
+
+function animateFireworks() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  particles = particles.filter(p => p.alpha > 0.01);
+  particles.forEach(p => {
+    p.x += p.vx;
+    p.y += p.vy;
+    p.vy += p.gravity;
+    p.vx *= 0.99;
+    p.alpha -= p.decay;
+    ctx.save();
+    ctx.globalAlpha = p.alpha;
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.radius, 0, Math.PI*2);
+    ctx.fillStyle = p.color;
+    ctx.shadowBlur = 8;
+    ctx.shadowColor = p.color;
+    ctx.fill();
+    ctx.restore();
+  });
+  if (fwActive || particles.length > 0) requestAnimationFrame(animateFireworks);
+}
+
+function launchFireworks() {
+  fwActive = true;
+  let count = 0;
+  const burst = () => {
+    if (count > 20) { fwActive = false; return; }
+    createBurst(
+      100 + Math.random()*(canvas.width-200),
+      50 + Math.random()*(canvas.height*0.6)
+    );
+    count++;
+    setTimeout(burst, 300 + Math.random()*400);
+  };
+  burst();
+  animateFireworks();
+}
+
+// Auto fireworks on load after 2s
+setTimeout(launchFireworks, 2000);
+
+// CATCH STITCH GAME
+let gameScore = 0, gameBest = 0, gameInterval = null, gameRunning = false, timeLeft = 30;
+const gameStitch = document.getElementById('game-stitch');
+const gameArea = document.getElementById('game-area');
+const gameOverlay = document.getElementById('game-overlay');
+const gameEnd = document.getElementById('game-end');
+
+function randomPos() {
+  const area = gameArea.getBoundingClientRect();
+  const w = gameArea.offsetWidth - 80;
+  const h = gameArea.offsetHeight - 80;
+  return { x: 10 + Math.random()*w, y: 10 + Math.random()*h };
+}
+
+function moveStitch() {
+  const pos = randomPos();
+  gameStitch.style.left = pos.x + 'px';
+  gameStitch.style.top = pos.y + 'px';
+  gameStitch.style.transform = 'scale(1)';
+}
+
+function spawnClickParticle(x, y) {
+  const emojis = ['🌹','✨','💙','⭐','🌸'];
+  const container = document.getElementById('click-particles');
+  for (let i = 0; i < 5; i++) {
+    const el = document.createElement('div');
+    el.textContent = emojis[Math.floor(Math.random()*emojis.length)];
+    el.style.cssText = `
+      position:absolute;left:${x}px;top:${y}px;
+      font-size:${14+Math.random()*10}px;
+      pointer-events:none;
+      animation: pop-out 0.7s ease forwards;
+      --dx:${(Math.random()-0.5)*80}px;
+      --dy:${-30-Math.random()*50}px;
+    `;
+    container.appendChild(el);
+    setTimeout(() => el.remove(), 700);
+  }
+}
+
+// Add pop-out keyframe dynamically
+const popStyle = document.createElement('style');
+popStyle.textContent = `@keyframes pop-out { 0%{opacity:1;transform:translate(0,0) scale(1)} 100%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(0.5)} }`;
+document.head.appendChild(popStyle);
+
+gameStitch.addEventListener('click', e => {
+  if (!gameRunning) return;
+  e.stopPropagation();
+  gameScore++;
+  document.getElementById('game-score').textContent = gameScore;
+  gameStitch.style.transform = 'scale(1.3)';
+  // Spawn particles
+  const rect = gameArea.getBoundingClientRect();
+  spawnClickParticle(
+    parseInt(gameStitch.style.left) + 35,
+    parseInt(gameStitch.style.top) + 35
+  );
+  setTimeout(moveStitch, 80);
+});
+
+gameArea.addEventListener('click', e => {
+  if (!gameRunning || e.target === gameStitch) return;
+  const flash = document.getElementById('miss-flash');
+  flash.style.opacity = '1';
+  setTimeout(() => flash.style.opacity = '0', 150);
+});
+
+function startGame() {
+  gameScore = 0;
+  timeLeft = 30;
+  gameRunning = true;
+  document.getElementById('game-score').textContent = '0';
+  document.getElementById('game-timer').textContent = '30';
+  gameOverlay.style.display = 'none';
+  gameEnd.style.display = 'none';
+  moveStitch();
+
+  // Stitch auto-moves faster as time goes on
+  let moveDelay = 1200;
+  function scheduleMove() {
+    if (!gameRunning) return;
+    moveDelay = Math.max(400, moveDelay - 15);
+    setTimeout(() => { if(gameRunning) { moveStitch(); scheduleMove(); } }, moveDelay);
+  }
+  scheduleMove();
+
+  clearInterval(gameInterval);
+  gameInterval = setInterval(() => {
+    timeLeft--;
+    document.getElementById('game-timer').textContent = timeLeft;
+    if (timeLeft <= 0) {
+      endGame();
+    }
+  }, 1000);
+}
+
+function endGame() {
+  gameRunning = false;
+  clearInterval(gameInterval);
+  const isNew = gameScore > gameBest;
+  if (isNew) gameBest = gameScore;
+  document.getElementById('game-best').textContent = gameBest;
+  document.getElementById('final-score').textContent = gameScore;
+  document.getElementById('best-msg').textContent = isNew && gameScore > 0 ? '🎉 New best score!' : gameScore >= 15 ? '⭐ Amazing catch!' : gameScore >= 8 ? '💙 Nice one!' : '🌹 Keep trying!';
+  gameEnd.style.display = 'flex';
+  if (gameScore >= 10) launchFireworks();
+}
+</script>
+</body>
+</html>
